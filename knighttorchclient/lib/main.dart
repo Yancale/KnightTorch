@@ -45,23 +45,18 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
   Position my_position;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-      
-    });
-  }
 
   void _getlocation()  async {
-    my_position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    
+    Geolocator()
+    .getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+    .then((value){
+      setState(() {
+        my_position = value;
+      });
+    });
   }
 
   @override
