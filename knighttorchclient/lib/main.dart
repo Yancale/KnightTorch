@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 
 void main() => runApp(MyApp());
 
@@ -45,6 +46,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  Position my_position;
 
   void _incrementCounter() {
     setState(() {
@@ -54,7 +56,12 @@ class _MyHomePageState extends State<MyHomePage> {
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
       _counter++;
+      
     });
+  }
+
+  void _getlocation()  async {
+    my_position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
   }
 
   @override
@@ -92,10 +99,10 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'You have pushed the button this many times:',
+              'your location is:',
             ),
             Text(
-              '$_counter',
+              '$my_position',
               style: Theme.of(context).textTheme.display1,
             ),
           ],
